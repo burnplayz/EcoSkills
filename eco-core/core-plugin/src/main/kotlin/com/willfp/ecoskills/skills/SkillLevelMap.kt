@@ -11,7 +11,7 @@ class SkillLevelMap(
 ) {
     operator fun get(skill: Skill): SkillLevel {
         return SkillLevel(
-            skill.getSavedLevel(player),
+            skill.getSavedLevel(player).toInt(),
             skill.getSavedXP(player)
         )
     }
@@ -20,7 +20,7 @@ class SkillLevelMap(
         require(level.level >= 0) { "Level must be positive" }
         require(level.xp >= 0) { "XP must be positive" }
 
-        skill.setSavedLevel(player, level.level)
+        skill.setSavedLevel(player, level.level.toDouble())
         skill.setSavedXP(player, level.xp)
     }
 
@@ -44,12 +44,12 @@ class SkillLevelMap(
                     PlayerSkillLevelUpEvent(
                         player,
                         skill,
-                        current.level + 1
+                        current.level.toInt() + 1
                     )
                 )
             }
 
-            skill.handleLevelUp(player, current.level + 1)
+            skill.handleLevelUp(player, current.level.toInt() + 1)
 
             giveXP(skill, overshoot) // For recursive level gains.
         } else {
@@ -82,7 +82,7 @@ class SkillLevelMap(
 
     fun reset(skill: Skill) {
         this[skill] = SkillLevel(
-            skill.startLevel,
+            skill.startLevel.toInt(),
             0.0
         )
     }

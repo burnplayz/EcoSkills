@@ -40,7 +40,7 @@ class CommandGive(plugin: EcoPlugin) :
             }
 
             is Stat -> {
-                player.giveBaseStatLevel(obj, amount.toInt())
+                player.giveBaseStatLevel(obj, amount.toDouble())
                 "gave-stat"
             }
 

@@ -41,7 +41,7 @@ class SkillLevelComponent(
                 .setDisplayName(
                     plugin.configYml.getString("level-gui.progression-slots.$key.name")
                         .replace("%skill%", skill.name)
-                        .let { skill.addPlaceholdersInto(it, level) }
+                        .let { skill.addPlaceholdersInto(it, level.toDouble()) }
                 )
                 .addLoreLines(
                     skill.addPlaceholdersInto(

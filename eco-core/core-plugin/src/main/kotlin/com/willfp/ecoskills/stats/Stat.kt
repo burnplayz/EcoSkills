@@ -27,7 +27,7 @@ class Stat(
     fun addPlaceholdersInto(
         strings: List<String>,
         player: Player,
-        level: Int = player.getStatLevel(this)
+        level: Double = player.getStatLevel(this)
     ): List<String> {
         // Replace placeholders in the strings with their actual values.
         return strings.map { s ->
@@ -52,7 +52,7 @@ class Stat(
         }.register()
     }
 
-    override fun getActualLevel(player: OfflinePlayer): Int {
+    override fun getActualLevel(player: OfflinePlayer): Double {
         return player.getStatLevel(this)
     }
 

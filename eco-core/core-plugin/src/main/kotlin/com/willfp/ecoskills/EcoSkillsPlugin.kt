@@ -56,7 +56,7 @@ class EcoSkillsPlugin : LibreforgePlugin() {
         registerSpecificHolderProvider<Player> { player ->
             if (player.isInDisabledWorld) emptyList() else
                 (Effects.values() union Stats.values())
-                    .mapNotNull { it.getLevelHolder(it.getActualLevel(player)) }
+                    .mapNotNull { it.getLevelHolder(it.getActualLevel(player).toInt()) }
                     .map { SimpleProvidedHolder(it) }
         }
 

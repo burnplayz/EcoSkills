@@ -32,7 +32,7 @@ object Skills : RegistrableCategory<Skill>("skill", "skills") {
 
         return LeaderboardEntry(
             player,
-            player.totalSkillLevel
+            player.totalSkillLevel.toDouble()
         )
     }
 

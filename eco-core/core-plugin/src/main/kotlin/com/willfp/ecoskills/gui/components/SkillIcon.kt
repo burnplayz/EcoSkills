@@ -38,7 +38,7 @@ class SkillIcon(
                 setDisplayName(
                     plugin.configYml.getFormattedString("gui.skill-icon.name")
                         .replace("%skill%", skill.name)
-                        .let { skill.addPlaceholdersInto(it, level) }
+                        .let { skill.addPlaceholdersInto(it, level.toDouble()) }
                 )
 
                 addLoreLines(

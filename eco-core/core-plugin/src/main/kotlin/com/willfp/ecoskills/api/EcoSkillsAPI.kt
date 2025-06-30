@@ -72,8 +72,8 @@ fun OfflinePlayer.setSkillLevel(skill: Skill, level: Int) =
 val OfflinePlayer.totalSkillLevel: Int
     get() = Skills.values().sumOf { this.getSkillLevel(it) }
 
-val OfflinePlayer.averageSkillLevel: Double
-    get() = this.totalSkillLevel.toDouble() / Skills.values().size
+val OfflinePlayer.averageSkillLevel: Int
+    get() = this.totalSkillLevel / Skills.values().size
 
 
 /*
@@ -82,17 +82,17 @@ Stats
 
  */
 
-fun OfflinePlayer.getBaseStatLevel(stat: Stat): Int =
+fun OfflinePlayer.getBaseStatLevel(stat: Stat): Double =
     this.stats[stat]
 
-fun OfflinePlayer.setBaseStatLevel(stat: Stat, value: Int) =
+fun OfflinePlayer.setBaseStatLevel(stat: Stat, value: Double) =
     this.stats.set(stat, value)
 
-fun OfflinePlayer.giveBaseStatLevel(stat: Stat, amount: Int) {
+fun OfflinePlayer.giveBaseStatLevel(stat: Stat, amount: Double) {
     this.stats[stat] += amount
 }
 
-fun OfflinePlayer.getStatLevel(stat: Stat): Int =
+fun OfflinePlayer.getStatLevel(stat: Stat): Double =
     if (this is Player) this.statModifiers.getModifiedValue(stat) else this.getBaseStatLevel(stat)
 
 val OfflinePlayer.statModifiers: List<StatModifier>
@@ -101,8 +101,8 @@ val OfflinePlayer.statModifiers: List<StatModifier>
 fun OfflinePlayer.getStatModifiers(stat: Stat): List<StatModifier> =
     if (this is Player) this.statModifiers.getModifiers(stat) else emptyList()
 
-fun OfflinePlayer.getBonusStatLevel(stat: Stat): Int =
-    if (this is Player) this.statModifiers.getBonusStatLevel(stat) else 0
+fun OfflinePlayer.getBonusStatLevel(stat: Stat): Double =
+    if (this is Player) this.statModifiers.getBonusStatLevel(stat) else 0.0
 
 fun Player.addStatModifier(statModifier: StatModifier): Unit =
     this.statModifiers.add(statModifier)
@@ -119,7 +119,7 @@ Effects
 
  */
 
-fun OfflinePlayer.getEffectLevel(effect: Effect): Int =
+fun OfflinePlayer.getEffectLevel(effect: Effect): Double =
     this.effects[effect]
 
 /*

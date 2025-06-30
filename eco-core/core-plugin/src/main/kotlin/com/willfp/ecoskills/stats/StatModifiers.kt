@@ -54,14 +54,14 @@ class StatModifiers(
     /**
      * Get how much a stat is modified by.
      */
-    fun getBonusStatLevel(stat: Stat): Int {
+    fun getBonusStatLevel(stat: Stat): Double {
         return getModifiedValue(stat) - player.getBaseStatLevel(stat)
     }
 
     /**
      * Get the modified value of a stat.
      */
-    fun getModifiedValue(stat: Stat): Int {
+    fun getModifiedValue(stat: Stat): Double {
         val modifiers = getModifiers(stat)
 
         var level = player.getBaseStatLevel(stat).toDouble()
@@ -74,7 +74,7 @@ class StatModifiers(
             level *= it.modifier
         }
 
-        return level.toInt()
+        return level;
     }
 }
 

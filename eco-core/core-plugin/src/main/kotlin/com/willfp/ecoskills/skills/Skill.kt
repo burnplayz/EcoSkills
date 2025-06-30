@@ -164,9 +164,9 @@ class Skill(
             .replace("%percentage_progress%", (player.getSkillProgress(skill) * 100).toNiceString())
             .replace("%current_xp%", player.getSkillXP(skill).toNiceString())
             .replace("%required_xp%", player.getFormattedRequiredXP(skill))
-            .replace("%description%", skill.getDescription(level))
+            .replace("%description%", skill.getDescription(level.toDouble()))
             .replace("%skill%", skill.name)
-            .let { addPlaceholdersInto(it, level) }
+            .let { addPlaceholdersInto(it, level.toDouble()) }
             .injectRewardPlaceholders(level)
 
         // Replace placeholders in the strings with their actual values.
@@ -199,7 +199,7 @@ class Skill(
         var processed = this
 
         // Fixes visual bug with repeated rewards
-        val levels = defaultMap<Levellable, Int>(0)
+        val levels = defaultMap<Levellable, Double>(0.0)
         for (reward in rewards) {
             levels[reward.reward] += reward.getCumulativeLevels(level)
         }

@@ -6,11 +6,11 @@ import org.bukkit.OfflinePlayer
 class LevelMap<T : Levellable>(
     private val player: OfflinePlayer
 ) {
-    operator fun get(levellable: T): Int {
+    operator fun get(levellable: T): Double {
         return levellable.getSavedLevel(player)
     }
 
-    operator fun set(levellable: T, level: Int) {
+    operator fun set(levellable: T, level: Double) {
         require(level >= 0) { "Level must be positive" }
 
         levellable.setSavedLevel(player, level)

@@ -27,11 +27,11 @@ abstract class Levellable(
     val config: Config,
     protected val plugin: EcoSkillsPlugin
 ) : KRegistrable {
-    val startLevel = 0
+    val startLevel = 0.0
 
     private val key = PersistentDataKey(
         plugin.createNamespacedKey(id),
-        PersistentDataKeyType.INT,
+        PersistentDataKeyType.DOUBLE,
         startLevel
     )
 
@@ -46,7 +46,7 @@ abstract class Levellable(
 
     private val descCache = Caffeine.newBuilder()
         .expireAfterWrite(plugin.configYml.getInt("gui.cache-ttl").toLong(), TimeUnit.MILLISECONDS)
-        .build<Int, String>()
+        .build<Double, String>()
 
     private val unformattedDescription = config.getString("description")
 
@@ -79,9 +79,9 @@ abstract class Levellable(
     internal open fun getActualLevel(player: OfflinePlayer) = getSavedLevel(player)
 
     internal fun getSavedLevel(player: OfflinePlayer) = player.profile.read(key)
-    internal fun setSavedLevel(player: OfflinePlayer, level: Int) = player.profile.write(key, level)
+    internal fun setSavedLevel(player: OfflinePlayer, level: Double) = player.profile.write(key, level)
 
-    fun addPlaceholdersInto(string: String, level: Int): String {
+    fun addPlaceholdersInto(string: String, level: Double): String {
         // This isn't the best way to do this, but it works!
         return string
             .replace("%ecoskills_${id}_numeral%", level.toNumeral())
@@ -106,12 +106,12 @@ abstract class Levellable(
         )
     }
 
-    fun getDescription(level: Int): String {
+    fun getDescription(level: Double): String {
         return descCache.get(level) {
             var desc = unformattedDescription
 
             val context = placeholderContext(
-                injectable = LevelInjectable(level)
+                injectable = LevelInjectable(level.toInt())
             )
 
             for (placeholder in loadDescriptionPlaceholders(config)) {
