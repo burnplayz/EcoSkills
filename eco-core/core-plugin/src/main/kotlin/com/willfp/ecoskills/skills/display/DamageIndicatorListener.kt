@@ -38,7 +38,7 @@ class DamageIndicatorListener(
             return
         }
 
-        if (event.damage == 0.0) {
+        if (event.damage == 0.0 || event.finalDamage == 0.0) {
             return
         }
 
