@@ -390,3 +390,4 @@ skills:
       pitch: 0.8
       # The volume
       volume: 1.0
+stats_decimal_places: 3
