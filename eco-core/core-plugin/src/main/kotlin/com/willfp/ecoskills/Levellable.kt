@@ -19,8 +19,6 @@ import com.willfp.ecoskills.util.LevelInjectable
 import com.willfp.ecoskills.util.loadDescriptionPlaceholders
 import org.bukkit.Bukkit
 import org.bukkit.OfflinePlayer
-import java.math.BigDecimal
-import java.math.RoundingMode
 import java.util.*
 import java.util.concurrent.TimeUnit
 
@@ -77,10 +75,14 @@ abstract class Levellable(
             getDescription(getActualLevel(it))
         }.register()
     }
+
     fun Double.formatAsStat(): String {
+        val toggle = plugin.configYml.getBool("stats_toggle_decimals");
+        if (!toggle) return this.toInt().toString();
         val decimalPlaces = plugin.configYml.getInt("stats_decimal_places");
-        return String.format("%."+decimalPlaces+"f", this)
+        return String.format("%." + decimalPlaces + "f", this)
     }
+
     internal open fun getActualLevel(player: OfflinePlayer) = getSavedLevel(player)
 
     internal fun getSavedLevel(player: OfflinePlayer) = player.profile.read(key)
